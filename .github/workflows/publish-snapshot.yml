@@ -19,8 +19,9 @@ jobs:
         env:
           TOKEN: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
           ORGANIZATION: ${{ github.repository_owner }}
-          REPOSITORY: ${{ github.repository }}
+          REPOSITORY: ${{ github.repository | cut -d '/' -f 2 }}
         run: |
+          echo "org=$ORGANIZATION, repo=$REPOSITORY"
           # List all packages in the repository using the GitHub API
           RESPONSE=$(curl -L \
             -H "Accept: application/vnd.github+json" \
