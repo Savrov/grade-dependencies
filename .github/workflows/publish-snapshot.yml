@@ -15,11 +15,22 @@ jobs:
       - name: Gradle Build Action
         uses: gradle/gradle-build-action@v2.8.0
 
-      - name: Delete Previous Snapshots
-        uses: camargo/delete-untagged-action@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: credible-team/gradle-versions
+      - name: List All Packages
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          OWNER=<OWNER>
+          REPO=<REPO>
+          
+          # List all packages in the repository using the GitHub API
+          PACKAGES=$(curl -u $GH_TOKEN:x-oauth-basic "https://api.github.com/repos/$OWNER/$REPO/packages" | jq -r '.packages[].name')
+          echo "Packages to delete: $PACKAGES"
+          
+          # Loop through and delete each package
+          for PACKAGE_NAME in $PACKAGES; do
+            echo "Deleting package: $PACKAGE_NAME"
+            curl -X DELETE -u $GH_TOKEN:x-oauth-basic "https://npm.pkg.github.com/$OWNER/$REPO/$PACKAGE_NAME"
+          done
 
       - name: Publish package
         uses: gradle/gradle-build-action@v2
