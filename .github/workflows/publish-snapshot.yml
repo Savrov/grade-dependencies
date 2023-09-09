@@ -17,7 +17,7 @@ jobs:
 
       - name: List All Packages
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
         run: |
           OWNER=credible-team
           REPO=gradle-versions
