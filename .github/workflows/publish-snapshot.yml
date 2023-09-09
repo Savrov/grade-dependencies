@@ -22,7 +22,6 @@ jobs:
         id: repository_name
         run: |
           NAME="$(echo ${{ github.repository }} | cut -d '/' -f 2)"
-          echo "::debug::name=$NAME"
           echo "value=$NAME" >> $GITHUB_OUTPUT
 
       - name: Parse Repository Packages
@@ -38,7 +37,7 @@ jobs:
           )
           # Filter packages based on the repository.name field
           PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPOSITORY"'") | .name')
-          echo "name=value::PACKAGES"
+          echo "name=value::$PACKAGES"
 
       - name: Delete Repository Packages
         run: |
