@@ -20,5 +20,6 @@ jetbrains-kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-
 [bundles]
 jetbrains-kotlin-test-shared = [
     "jetbrains-kotlin-test-common",
-    "jetbrains-kotlin-test-annotationsCommon"
+    "jetbrains-kotlin-test-annotationsCommon",
+    "jetbrains-kotlin-coroutines-test",
 ]
