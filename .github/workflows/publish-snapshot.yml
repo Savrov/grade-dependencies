@@ -21,14 +21,14 @@ jobs:
       - name: Parse Repository Name
         id: repository_name
         run: |
-          NAME = "$(echo ${{ github.repository }} | cut -d '/' -f 2)"
+          NAME="$(echo ${{ github.repository }} | cut -d '/' -f 2)"
           echo "::debug::name=$NAME"
           echo "value=$NAME" >> $GITHUB_OUTPUT
 
       - name: Parse Repository Packages
         id: repository_packages
         run: |
-          REPOSITORY = ${{ steps.repository_name.outputs.value }}
+          REPOSITORY=${{ steps.repository_name.outputs.value }}
           # List all packages in the repository using the GitHub API
           RESPONSE=$(curl -L \
             -H "Accept: application/vnd.github+json" \
