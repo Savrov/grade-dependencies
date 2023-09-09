@@ -3,9 +3,6 @@ plugins {
     `maven-publish`
 }
 
-group = "team.credible.gradle"
-version = "1.0-SNAPSHOT"
-
 repositories {
     mavenCentral()
 }
@@ -22,10 +19,6 @@ publishing {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
             artifactId = "versions-jetbrains"
-
-            pom {
-
-            }
         }
     }
 }
