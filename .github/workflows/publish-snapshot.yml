@@ -21,6 +21,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           organization: credible-team
           type: maven
+          keep: 0
           version-pattern: "\\bSNAPSHOT\\b" # The regex needs to be escaped!
           names: |
             team.credible.gradle.versions-android
