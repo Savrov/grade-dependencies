@@ -23,14 +23,21 @@ jobs:
           REPO=gradle-versions
           
           # List all packages in the repository using the GitHub API
-          PACKAGES=$(curl -u $GH_TOKEN:x-oauth-basic "https://api.github.com/repos/$OWNER/$REPO/packages" | jq -r '.packages[].name')
-          echo "Packages to delete: $PACKAGES"
+          RESPONSE=$(curl -u $GH_TOKEN:x-oauth-basic "https://api.github.com/repos/$OWNER/$REPO/packages")
+
+          # Check if the response contains packages
+          if [[ $(echo "$RESPONSE" | jq '.packages | length') -gt 0 ]]; then
+            PACKAGES=$(echo "$RESPONSE" | jq -r '.packages[].name')
+            echo "Packages to delete: $PACKAGES"
           
-          # Loop through and delete each package
-          for PACKAGE_NAME in $PACKAGES; do
-            echo "Deleting package: $PACKAGE_NAME"
-            curl -X DELETE -u $GH_TOKEN:x-oauth-basic "https://npm.pkg.github.com/$OWNER/$REPO/$PACKAGE_NAME"
-          done
+            # Loop through and delete each package
+            for PACKAGE_NAME in $PACKAGES; do
+              echo "Deleting package: $PACKAGE_NAME"
+              curl -X DELETE -u $GH_TOKEN:x-oauth-basic "https://maven.pkg.github.com/$OWNER/$REPO/$PACKAGE_NAME"
+            done
+          else
+            echo "No packages found in the repository."
+          fi
 
       - name: Publish package
         uses: gradle/gradle-build-action@v2
