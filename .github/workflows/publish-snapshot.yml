@@ -18,13 +18,13 @@ jobs:
       - name: Gradle Build Action
         uses: gradle/gradle-build-action@v2.8.0
 
-      - name: Parse repository name
+      - name: Parse Repository Name
         id: repository_name
-        run: echo "REPOSITORY=$(echo ${{ github.repository }} | cut -d '/' -f 2)" >> $GITHUB_ENV
+        run: echo "::set-output name=value::$(echo ${{ github.repository }} | cut -d '/' -f 2)"
 
-      - name: Delete Previous SNAPSHOT versions
+      - name: Delete Repository Packages
         run: |
-          echo "org=$ORGANIZATION, repo=$REPOSITORY"
+          REPOSITORY = ${{ steps.repository_name.outputs.value }}"
           # List all packages in the repository using the GitHub API
           RESPONSE=$(curl -L \
             -H "Accept: application/vnd.github+json" \
