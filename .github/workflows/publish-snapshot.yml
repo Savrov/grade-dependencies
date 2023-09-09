@@ -19,8 +19,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          OWNER=<OWNER>
-          REPO=<REPO>
+          OWNER=credible-team
+          REPO=gradle-versions
           
           # List all packages in the repository using the GitHub API
           PACKAGES=$(curl -u $GH_TOKEN:x-oauth-basic "https://api.github.com/repos/$OWNER/$REPO/packages" | jq -r '.packages[].name')
