@@ -23,5 +23,6 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: publish
+          prerelease: true  # Allow publishing even if version is the same
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
