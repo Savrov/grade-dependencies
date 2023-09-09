@@ -1,0 +1,9 @@
+[versions]
+versionSupabase = "1.0.0"
+
+[libraries]
+supabase-auth = { module = "io.github.jan-tennert.supabase:gotrue-kt", version.ref = "versionSupabase" }
+supabase-postgrest = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "versionSupabase" }
+supabase-storage = { module = "io.github.jan-tennert.supabase:storage-kt", version.ref = "versionSupabase" }
+supabase-realtime = { module = "io.github.jan-tennert.supabase:realtime-kt", version.ref = "versionSupabase" }
+supabase-functions = { module = "io.github.jan-tennert.supabase:functions-kt", version.ref = "versionSupabase" }

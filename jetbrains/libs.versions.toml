@@ -1,0 +1,18 @@
+[versions]
+versionKotlin = "1.8.20"
+versionCoroutines = "1.6.4"
+versionDateTime = "0.4.0"
+versionSerialization = "1.5.0"
+
+[plugins]
+jetbrains-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "versionKotlin" }
+jetbrains-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "versionKotlin" }
+jetbrains-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "versionKotlin" }
+
+[libraries]
+jetbrains-kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "versionKotlin" }
+jetbrains-kotlin-test-annotationsCommon = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "versionKotlin" }
+jetbrains-kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "versionCoroutines" }
+jetbrains-kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "versionCoroutines" }
+jetbrains-kotlin-dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "versionDateTime" }
+jetbrains-kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "versionSerialization" }
