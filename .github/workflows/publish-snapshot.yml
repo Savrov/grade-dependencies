@@ -28,7 +28,7 @@ jobs:
           # Check if the response contains packages
           if [[ $(echo "$RESPONSE" | jq '. | length') -gt 0 ]]; then
             # Filter packages based on repository.name
-            PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == $REPO) | .name')
+            PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "$REPO") | .name')
           
             # Check if there are packages to delete
             if [ -n "$PACKAGES" ]; then
@@ -40,7 +40,7 @@ jobs:
                 curl -X DELETE -u $GH_TOKEN:x-oauth-basic "https://maven.pkg.github.com/$OWNER/$PACKAGE_NAME"
               done
             else
-              echo "No packages found in the 'gradle-versions' repository."
+              echo "No packages found in the '$REPO' repository."
             fi
           else
             echo "No packages found in the GitHub Packages account."
