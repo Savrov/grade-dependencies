@@ -15,22 +15,11 @@ jobs:
       - name: Gradle Build Action
         uses: gradle/gradle-build-action@v2.8.0
 
-      - name: Delete previous snapshot
-        uses: smartsquaregmbh/delete-old-packages@v0.7.0
+      - name: Delete Previous Snapshots
+        uses: camargo/delete-untagged-action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          organization: credible-team
-          type: maven
-          keep: 0
-          version-pattern: "\\bSNAPSHOT\\b" # The regex needs to be escaped!
-          names: |
-            team.credible.gradle.versions-android
-            team.credible.gradle.versions-arkivanov
-            team.credible.gradle.versions-jetbrains
-            team.credible.gradle.versions-koin
-            team.credible.gradle.versions-other
-            team.credible.gradle.versions-sqldelight
-            team.credible.gradle.versions-supabase
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: credible-team/gradle-versions
 
       - name: Publish package
         uses: gradle/gradle-build-action@v2
