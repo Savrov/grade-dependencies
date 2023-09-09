@@ -23,7 +23,7 @@ jobs:
           REPO=gradle-versions
           
           # List all packages in the repository using the GitHub API
-          RESPONSE=$(curl -u $GH_TOKEN:x-oauth-basic "https://api.github.com/repos/$OWNER/packages")
+          RESPONSE=$(curl -u $GH_TOKEN:x-oauth-basic "https://api.github.com/orgs/$OWNER/packages")
           echo "Response: $RESPONSE"
           # Check if the response is a JSON array
           if [[ $(echo "$RESPONSE" | jq 'type') == "array" ]]; then
