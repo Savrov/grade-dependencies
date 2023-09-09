@@ -1,0 +1,5 @@
+[versions]
+version-other-uuid = "0.7.1"
+
+[libraries]
+other-uuid = { module = "com.benasher44:uuid", version.ref = "version-other-uuid" }
