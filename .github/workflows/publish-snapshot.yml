@@ -40,7 +40,7 @@ jobs:
             # Loop through and delete each package
             for PACKAGE_NAME in $PACKAGES; do
               echo "Deleting package: $PACKAGE_NAME"
-              curl -X DELETE -u $GH_TOKEN:x-oauth-basic "https://maven.pkg.github.com/$OWNER/$PACKAGE_NAME"
+              curl -X DELETE -u $GH_TOKEN:x-oauth-basic "https://api.github.com/orgs/$OWNER/packages/maven/$PACKAGE_NAME"
             done
           else
             echo "No packages found in the '$REPO' repository."
