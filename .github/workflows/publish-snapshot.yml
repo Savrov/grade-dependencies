@@ -23,20 +23,27 @@ jobs:
           REPO=gradle-versions
           
           # List all packages in the repository using the GitHub API
-          RESPONSE=$(curl -u $GH_TOKEN:x-oauth-basic "https://api.github.com/repos/$OWNER/$REPO/packages")
+          RESPONSE=$(curl -u $GH_TOKEN:x-oauth-basic "https://api.github.com/repos/$OWNER/packages")
           echo "Response: $RESPONSE"
           # Check if the response contains packages
-          if [[ $(echo "$RESPONSE" | jq '.packages | length') -gt 0 ]]; then
-            PACKAGES=$(echo "$RESPONSE" | jq -r '.packages[].name')
-            echo "Packages to delete: $PACKAGES"
+          if [[ $(echo "$RESPONSE" | jq '. | length') -gt 0 ]]; then
+            # Filter packages based on repository.name
+            PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == $REPO) | .name')
           
-            # Loop through and delete each package
-            for PACKAGE_NAME in $PACKAGES; do
-              echo "Deleting package: $PACKAGE_NAME"
-              curl -X DELETE -u $GH_TOKEN:x-oauth-basic "https://maven.pkg.github.com/$OWNER/$REPO/$PACKAGE_NAME"
-            done
+            # Check if there are packages to delete
+            if [ -n "$PACKAGES" ]; then
+              echo "Packages to delete: $PACKAGES"
+          
+              # Loop through and delete each package
+              for PACKAGE_NAME in $PACKAGES; do
+                echo "Deleting package: $PACKAGE_NAME"
+                curl -X DELETE -u $GH_TOKEN:x-oauth-basic "https://maven.pkg.github.com/$OWNER/$PACKAGE_NAME"
+              done
+            else
+              echo "No packages found in the 'gradle-versions' repository."
+            fi
           else
-            echo "No packages found in the repository."
+            echo "No packages found in the GitHub Packages account."
           fi
 
       - name: Publish package
