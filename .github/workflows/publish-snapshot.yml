@@ -24,7 +24,7 @@ jobs:
           
           # List all packages in the repository using the GitHub API
           RESPONSE=$(curl -u $GH_TOKEN:x-oauth-basic "https://api.github.com/repos/$OWNER/$REPO/packages")
-
+          echo "Response: RESPONSE"
           # Check if the response contains packages
           if [[ $(echo "$RESPONSE" | jq '.packages | length') -gt 0 ]]; then
             PACKAGES=$(echo "$RESPONSE" | jq -r '.packages[].name')
