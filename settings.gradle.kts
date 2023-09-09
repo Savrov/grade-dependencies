@@ -6,3 +6,5 @@ pluginManagement {
 }
 
 rootProject.name = "gradle-versions"
+include("supabase")
+include("jetbrains")

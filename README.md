@@ -1,1 +1,1 @@
-# gradle-versions
+# Gradle Versions Catalog

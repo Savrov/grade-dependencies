@@ -20,7 +20,12 @@ publishing {
     publications {
         create<MavenPublication>("versionCatalog") {
             from(components["versionCatalog"])
-            artifactId = "versions-supabase"
+            groupId = project.parent?.group?.toString()
+            artifactId = "versions-jetbrains"
+
+            pom {
+
+            }
         }
     }
 }
