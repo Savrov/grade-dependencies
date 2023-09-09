@@ -2,6 +2,9 @@ name: Publish SNAPSHOT versions
 on:
   push:
     branches: ['main']
+env:
+  TOKEN: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
+  ORGANIZATION: ${{ github.repository_owner }}
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -15,11 +18,11 @@ jobs:
       - name: Gradle Build Action
         uses: gradle/gradle-build-action@v2.8.0
 
+      - name: Parse repository name
+        id: repository_name
+        run: echo "REPOSITORY=$(echo ${{ github.repository }} | cut -d '/' -f 2)" >> $GITHUB_ENV
+
       - name: Delete Previous SNAPSHOT versions
-        env:
-          TOKEN: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
-          ORGANIZATION: ${{ github.repository_owner }}
-          REPOSITORY: ${{ github.repository | cut -d '/' -f 2 }}
         run: |
           echo "org=$ORGANIZATION, repo=$REPOSITORY"
           # List all packages in the repository using the GitHub API
