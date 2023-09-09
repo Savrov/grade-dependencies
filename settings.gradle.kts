@@ -8,5 +8,6 @@ pluginManagement {
 rootProject.name = "gradle-versions"
 include("android")
 include("arkivanov")
-include("supabase")
 include("jetbrains")
+include("koin")
+include("supabase")
