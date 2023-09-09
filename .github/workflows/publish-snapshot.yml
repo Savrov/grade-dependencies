@@ -30,27 +30,21 @@ jobs:
           )
           echo "URL: https://api.github.com/orgs/$OWNER/packages?package_type=maven&visibility=internal"
           echo "Response: $RESPONSE"
-          # Check if the response is a JSON array
-          if [[ $(echo "$RESPONSE" | jq 'type') == "array" ]]; then
-            # Filter packages based on the repository.name field
-            PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPO"'") | .name')
-          
-            # Check if there are packages to delete
-            if [ -n "$PACKAGES" ]; then
-              echo "Packages to delete: $PACKAGES"
-          
-              # Loop through and delete each package
-              for PACKAGE_NAME in $PACKAGES; do
-                echo "Deleting package: $PACKAGE_NAME"
-                curl -X DELETE -u $GH_TOKEN:x-oauth-basic "https://maven.pkg.github.com/$OWNER/$PACKAGE_NAME"
-              done
-            else
-              echo "No packages found in the '$REPO' repository."
-            fi
-          else
-            echo "No packages found in the GitHub Packages account."
-          fi
 
+          # Filter packages based on the repository.name field
+          PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPO"'") | .name')
+          
+          # Check if there are packages to delete
+          if [ -n "$PACKAGES" ]; then
+            echo "Packages to delete: $PACKAGES"
+            # Loop through and delete each package
+            for PACKAGE_NAME in $PACKAGES; do
+              echo "Deleting package: $PACKAGE_NAME"
+              curl -X DELETE -u $GH_TOKEN:x-oauth-basic "https://maven.pkg.github.com/$OWNER/$PACKAGE_NAME"
+            done
+          else
+            echo "No packages found in the '$REPO' repository."
+          fi
       - name: Publish package
         uses: gradle/gradle-build-action@v2
         with:
