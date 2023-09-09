@@ -25,10 +25,10 @@ jobs:
           # List all packages in the repository using the GitHub API
           RESPONSE=$(curl -u $GH_TOKEN:x-oauth-basic "https://api.github.com/repos/$OWNER/packages")
           echo "Response: $RESPONSE"
-          # Check if the response contains packages
-          if [[ $(echo "$RESPONSE" | jq '. | length') -gt 0 ]]; then
-            # Filter packages based on repository.name
-            PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "$REPO") | .name')
+          # Check if the response is a JSON array
+          if [[ $(echo "$RESPONSE" | jq 'type') == "array" ]]; then
+            # Filter packages based on the repository.name field
+            PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPO"'") | .name')
           
             # Check if there are packages to delete
             if [ -n "$PACKAGES" ]; then
