@@ -1,6 +1,6 @@
 name: Publish package to GitHub Packages
 on:
-  release:
+  push:
     branches: ['main']
 jobs:
   publish:
