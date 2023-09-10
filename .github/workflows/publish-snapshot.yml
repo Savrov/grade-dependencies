@@ -37,16 +37,11 @@ jobs:
             "https://api.github.com/orgs/$ORGANIZATION/packages?package_type=maven&visibility=internal"
           )
           # Filter packages based on the repository.name field
-               PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPOSITORY"'") | .name' | tr '\n' ',')
-          # Transform array to comma-separated string
-          #          PACKAGES_STR=""
-          #          for ITEM in "${PACKAGES[@]}"; do
-          #            PACKAGES_STR="$PACKAGES_STR$ITEM,"
-          #          done
-          #          # PACKAGES_STR="${PACKAGES_STR%$','}"
+          PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPOSITORY"'") | .name' | tr '\n' ',')
+          PACKAGES="${PACKAGES%$','}"
           # store to output
-               echo "packages:$PACKAGES"
-               echo "value=$PACKAGES" >> $GITHUB_OUTPUT
+          echo "packages:$PACKAGES"
+          echo "value=$PACKAGES" >> $GITHUB_OUTPUT
 
       - name: Delete Repository Packages
         run: |
@@ -59,13 +54,13 @@ jobs:
             echo "Packages to delete: ${PACKAGES_ARRAY[*]}"
             # Loop through and delete each package
             for PACKAGE_NAME in "${PACKAGES_ARRAY[@]}"; do
-            echo "Deleting package: $PACKAGE_NAME"
-            curl -L \
-            -X DELETE \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer $TOKEN" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            "https://api.github.com/orgs/$ORGANIZATION/packages/maven/$PACKAGE_NAME"
+              echo "Deleting package: $PACKAGE_NAME"
+              curl -L \
+              -X DELETE \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $TOKEN" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "https://api.github.com/orgs/$ORGANIZATION/packages/maven/$PACKAGE_NAME"
             done
           else
             echo "No packages found in the '$REPOSITORY' repository."
