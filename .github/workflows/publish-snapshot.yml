@@ -38,21 +38,21 @@ jobs:
           )
           # Filter packages based on the repository.name field
           PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPOSITORY"'") | .name')
-          # Transform array to string
+          # Transform array to comma-separated string
           PACKAGES_STR=""
           for ITEM in "${PACKAGES[@]}"; do
-               PACKAGES_STR="$PACKAGES_STR$ITEM,"
+            PACKAGES_STR="$PACKAGES_STR$ITEM,"
           done
           # PACKAGES_STR="${PACKAGES_STR%$','}"
           # store to output
-          echo -e "packages:\n$PACKAGES_STR"
+          echo "packages:$PACKAGES_STR"
           echo "value=$PACKAGES_STR" >> $GITHUB_OUTPUT
 
       - name: Delete Repository Packages
         run: |
           REPOSITORY=${{ steps.repository_name.outputs.value }}
           PACKAGES=${{ steps.repository_packages.outputs.value }}
-          IFS=$'\n' read -rd '' -a PACKAGES_ARRAY <<< "$PACKAGES"
+          IFS=$',' read -rd '' -a PACKAGES_ARRAY <<< "$PACKAGES"
           echo -e "packages:\n$PACKAGES_ARRAY"
           # Check if there are packages to delete
           if [ -n "${PACKAGES_ARRAY[*]}" ]; then
