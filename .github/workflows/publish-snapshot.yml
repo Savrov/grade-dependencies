@@ -38,13 +38,15 @@ jobs:
           )
           # Filter packages based on the repository.name field
           PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPOSITORY"'") | .name')
-          echo "packages: $PACKAGES"
-          echo "value=$PACKAGES" >> $GITHUB_OUTPUT
+          PACKAGES_JSON = ${{ toJSON(PACKAGES) }}
+          echo -e "packages:\n$PACKAGES_JSON"
+          echo "value=$PACKAGES_JSON" >> $GITHUB_OUTPUT
 
       - name: Delete Repository Packages
         run: |
           REPOSITORY=${{ steps.repository_name.outputs.value }}
-          PACKAGES=${{ steps.repository_packages.outputs.value }}
+          PACKAGES_JSON=${{ steps.repository_packages.outputs.value }}
+          PACKAGES = ${{ fromJSON(PACKAGES) }}
           # Check if there are packages to delete
           if [ -n "$PACKAGES" ]; then
             echo "Packages to delete: $PACKAGES"
