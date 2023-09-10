@@ -40,10 +40,10 @@ jobs:
           PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPOSITORY"'") | .name')
           # Transform array to string
           PACKAGES_STR=""
-               for ITEM in "${PACKAGES[@]}"; do
-               PACKAGES_STR="$PACKAGES_STR$ITEM\n"
+          for ITEM in "${PACKAGES[@]}"; do
+               PACKAGES_STR="$PACKAGES_STR$ITEM,"
           done
-          #          PACKAGES_STR="${PACKAGES_STR%$'\n'}"
+          PACKAGES_STR="${PACKAGES_STR%$','}"
           # store to output
           echo -e "packages:\n$PACKAGES_STR"
           echo "value=$PACKAGES_STR" >> $GITHUB_OUTPUT
