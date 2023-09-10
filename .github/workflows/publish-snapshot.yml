@@ -38,8 +38,15 @@ jobs:
           )
           # Filter packages based on the repository.name field
           PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPOSITORY"'") | .name')
-          echo -e "packages:\n$PACKAGES"
-          echo "value=$PACKAGES" >> $GITHUB_OUTPUT
+          # Transform array to string
+          PACKAGES_STR=""
+          for package in "${PACKAGES[@]}"; do
+            PACKAGES_STR="$package\n"
+          done
+          PACKAGES_STR="${PACKAGES_STR%$'\n'}"
+          # store to output
+          echo -e "packages:\n$PACKAGES_STR"
+          echo "value=$PACKAGES_STR" >> $GITHUB_OUTPUT
 
       - name: Delete Repository Packages
         run: |
