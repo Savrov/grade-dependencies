@@ -1,5 +1,6 @@
 name: Publish SNAPSHOT versions
 on:
+  workflow_dispatch:
   push:
     branches: ['main']
 env:
@@ -43,6 +44,31 @@ jobs:
           echo "packages:$PACKAGES"
           echo "value=$PACKAGES" >> $GITHUB_OUTPUT
 
+      - name: Delete SNAPSHOT Packages
+        run: |
+          REPOSITORY=${{ steps.repository_name.outputs.value }}
+          PACKAGES=${{ steps.repository_packages.outputs.value }}
+          # Transform comma-separated string to array of strings
+          IFS="," read -ra PACKAGES_ARRAY <<< "$PACKAGES"
+          echo -e "packages:\n$PACKAGES_ARRAY"
+          
+          # Check if there are packages to delete
+          if [ -n "${PACKAGES_ARRAY[*]}" ]; then
+            echo "SNAPSHOT packages to delete: ${PACKAGES_ARRAY[*]}"
+            # Loop through and delete each package
+            for PACKAGE_NAME in "${PACKAGES_ARRAY[@]}"; do
+              echo "Deleting package: $PACKAGE_NAME"
+              curl -L \
+              -X DELETE \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $PACKAGES_TOKEN" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "https://api.github.com/orgs/$ORGANIZATION/packages/maven/$PACKAGE_NAME"
+            done
+          else
+            echo "No SNAPSHOT packages found in the '$REPOSITORY' repository."
+          fi
+
       - name: Delete Repository Packages
         run: |
           REPOSITORY=${{ steps.repository_name.outputs.value }}
@@ -50,6 +76,7 @@ jobs:
           # Transform comma-separated string to array of strings
           IFS="," read -ra PACKAGES_ARRAY <<< "$PACKAGES"
           echo -e "packages:\n$PACKAGES_ARRAY"
+          
           # Check if there are packages to delete
           if [ -n "${PACKAGES_ARRAY[*]}" ]; then
             echo "Packages to delete: ${PACKAGES_ARRAY[*]}"
