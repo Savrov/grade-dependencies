@@ -48,7 +48,7 @@ jobs:
           set -x  # Enable debugging
           REPOSITORY=${{ steps.repository_name.outputs.value }}
           PACKAGES=${{ steps.repository_packages.outputs.value }}
-          IFS=',' read -rd '' -a PACKAGES_ARRAY <<< "$PACKAGES"
+          IFS="," read -ra PACKAGES_ARRAY <<< "$PACKAGES"
           echo -e "packages:\n$PACKAGES_ARRAY"
           # Check if there are packages to delete
           if [ -n "${PACKAGES_ARRAY[*]}" ]; then
