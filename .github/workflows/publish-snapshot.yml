@@ -38,28 +38,27 @@ jobs:
           )
           # Filter packages based on the repository.name field
           PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPOSITORY"'") | .name')
-          PACKAGES_JSON = ${{ toJSON($PACKAGES) }}
-          echo -e "packages:\n$PACKAGES_JSON"
-          echo "value=$PACKAGES_JSON" >> $GITHUB_OUTPUT
+          echo -e "packages:\n$PACKAGES"
+          echo "value=$PACKAGES" >> $GITHUB_OUTPUT
 
       - name: Delete Repository Packages
         run: |
           REPOSITORY=${{ steps.repository_name.outputs.value }}
-          PACKAGES_JSON=${{ steps.repository_packages.outputs.value }}
-          PACKAGES = ${{ fromJSON($PACKAGES_JSON) }}
-          echo -e "packages:\n$PACKAGES"
+          PACKAGES=${{ steps.repository_packages.outputs.value }}
+          IFS=$'\n' read -rd '' -a PACKAGES_ARRAY <<< "$PACKAGES"
+          echo -e "packages:\n$PACKAGES_ARRAY"
           # Check if there are packages to delete
-          if [ -n "$PACKAGES" ]; then
-            echo "Packages to delete: $PACKAGES"
+          if [ -n "${PACKAGES_ARRAY[*]}" ]; then
+            echo "Packages to delete: ${PACKAGES_ARRAY[*]}"
             # Loop through and delete each package
-            for PACKAGE_NAME in $PACKAGES; do
-              echo "Deleting package: $PACKAGE_NAME"
-              curl -L \
-                -X DELETE \
-                -H "Accept: application/vnd.github+json" \
-                -H "Authorization: Bearer $TOKEN" \
-                -H "X-GitHub-Api-Version: 2022-11-28" \
-                "https://api.github.com/orgs/$ORGANIZATION/packages/maven/$PACKAGE_NAME"
+            for PACKAGE_NAME in "${PACKAGES_ARRAY[@]}"; do
+            echo "Deleting package: $PACKAGE_NAME"
+            curl -L \
+            -X DELETE \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/orgs/$ORGANIZATION/packages/maven/$PACKAGE_NAME"
             done
           else
             echo "No packages found in the '$REPOSITORY' repository."
