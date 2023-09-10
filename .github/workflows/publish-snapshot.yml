@@ -22,7 +22,7 @@ jobs:
         id: repository_name
         run: |
           NAME="$(echo ${{ github.repository }} | cut -d '/' -f 2)"
-          # store to output
+          # Store to output
           echo "name: $NAME"
           echo "value=$NAME" >> $GITHUB_OUTPUT
 
@@ -39,15 +39,15 @@ jobs:
           )
           # Filter packages based on the repository.name field
           PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPOSITORY"'") | .name' | tr '\n' ',')
-          # store to output
+          # Store to output
           echo "packages:$PACKAGES"
           echo "value=$PACKAGES" >> $GITHUB_OUTPUT
 
       - name: Delete Repository Packages
         run: |
-          set -x  # Enable debugging
           REPOSITORY=${{ steps.repository_name.outputs.value }}
           PACKAGES=${{ steps.repository_packages.outputs.value }}
+          # Transform comma-separated string to array of strings
           IFS="," read -ra PACKAGES_ARRAY <<< "$PACKAGES"
           echo -e "packages:\n$PACKAGES_ARRAY"
           # Check if there are packages to delete
