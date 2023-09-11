@@ -21,9 +21,9 @@ jobs:
           VERSION_TAG: SNAPSHOT
           GITHUB_TOKEN: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
 
-      - name: Publish package
+      - name: Publish SNAPSHOT package
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publish
+          arguments: publish -Pversion=SNAPSHOT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
