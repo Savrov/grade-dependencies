@@ -3,9 +3,6 @@ on:
   workflow_dispatch:
   push:
     branches: ['main']
-env:
-  PACKAGES_TOKEN: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
-  ORGANIZATION: ${{ github.repository_owner }}
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -16,83 +13,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Gradle Build Action
-        uses: gradle/gradle-build-action@v2.8.0
-
-      - name: Parse Repository Name
-        id: repository_name
-        run: |
-          NAME="$(echo ${{ github.repository }} | cut -d '/' -f 2)"
-          # Store to output
-          echo "name: $NAME"
-          echo "value=$NAME" >> $GITHUB_OUTPUT
-
-      - name: Parse Repository Packages
-        id: repository_packages
-        run: |
-          REPOSITORY=${{ steps.repository_name.outputs.value }}
-          # List all packages in the repository using the GitHub API
-          RESPONSE=$(curl -L \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer $PACKAGES_TOKEN" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            "https://api.github.com/orgs/$ORGANIZATION/packages?package_type=maven&visibility=internal"
-          )
-          # Filter packages based on the repository.name field
-          PACKAGES=$(echo "$RESPONSE" | jq -r '.[] | select(.repository.name == "'"$REPOSITORY"'") | .name' | tr '\n' ',')
-          # Store to output
-          echo "packages:$PACKAGES"
-          echo "value=$PACKAGES" >> $GITHUB_OUTPUT
-
-      - name: Delete SNAPSHOT Packages
-        run: |
-          REPOSITORY=${{ steps.repository_name.outputs.value }}
-          PACKAGES=${{ steps.repository_packages.outputs.value }}
-          # Transform comma-separated string to array of strings
-          IFS="," read -ra PACKAGES_ARRAY <<< "$PACKAGES"
-          echo -e "packages:\n$PACKAGES_ARRAY"
-          
-          # Check if there are packages to delete
-          if [ -n "${PACKAGES_ARRAY[*]}" ]; then
-            echo "SNAPSHOT packages to delete: ${PACKAGES_ARRAY[*]}"
-            # Loop through and delete each package
-            for PACKAGE_NAME in "${PACKAGES_ARRAY[@]}"; do
-              echo "Deleting package: $PACKAGE_NAME"
-              curl -L \
-              -X DELETE \
-              -H "Accept: application/vnd.github+json" \
-              -H "Authorization: Bearer $PACKAGES_TOKEN" \
-              -H "X-GitHub-Api-Version: 2022-11-28" \
-              "https://api.github.com/orgs/$ORGANIZATION/packages/maven/$PACKAGE_NAME"
-            done
-          else
-            echo "No SNAPSHOT packages found in the '$REPOSITORY' repository."
-          fi
-
-      - name: Delete Repository Packages
-        run: |
-          REPOSITORY=${{ steps.repository_name.outputs.value }}
-          PACKAGES=${{ steps.repository_packages.outputs.value }}
-          # Transform comma-separated string to array of strings
-          IFS="," read -ra PACKAGES_ARRAY <<< "$PACKAGES"
-          echo -e "packages:\n$PACKAGES_ARRAY"
-          
-          # Check if there are packages to delete
-          if [ -n "${PACKAGES_ARRAY[*]}" ]; then
-            echo "Packages to delete: ${PACKAGES_ARRAY[*]}"
-            # Loop through and delete each package
-            for PACKAGE_NAME in "${PACKAGES_ARRAY[@]}"; do
-              echo "Deleting package: $PACKAGE_NAME"
-              curl -L \
-              -X DELETE \
-              -H "Accept: application/vnd.github+json" \
-              -H "Authorization: Bearer $PACKAGES_TOKEN" \
-              -H "X-GitHub-Api-Version: 2022-11-28" \
-              "https://api.github.com/orgs/$ORGANIZATION/packages/maven/$PACKAGE_NAME"
-            done
-          else
-            echo "No packages found in the '$REPOSITORY' repository."
-          fi
+      - name: Delete SNAPSHOT packages
+        uses: credible-team/action-version-cleaner@main
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PACKAGE_TYPE: maven
+          VERSION_TAG: SNAPSHOT
+          GITHUB_TOKEN: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
 
       - name: Publish package
         uses: gradle/gradle-build-action@v2
