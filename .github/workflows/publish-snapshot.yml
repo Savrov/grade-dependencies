@@ -10,8 +10,6 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
 
       - name: Delete SNAPSHOT packages
         uses: credible-team/action-version-cleaner@main
@@ -21,10 +19,12 @@ jobs:
           version-tag: SNAPSHOT
           github-token: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
 
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Publish SNAPSHOT package
         uses: gradle/gradle-build-action@v2
         with:
-          repository: credible-team/gradle-versions
-          arguments: publish
+          arguments: publish -Pversion=SNAPSHOT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
