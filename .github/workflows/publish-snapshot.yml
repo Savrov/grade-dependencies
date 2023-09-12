@@ -13,10 +13,7 @@ jobs:
       - name: Delete previous SNAPSHOT packages
         uses: credible-team/action-version-cleaner@main
         with:
-          github-repository: ${{ github.repository }}
           package-type: maven
-          version-tag: SNAPSHOT
-          is-version-tag-strict: true
           github-token: ${{ secrets.DELETE_PACKAGES_TOKEN }}
 
       - name: Checkout repository
