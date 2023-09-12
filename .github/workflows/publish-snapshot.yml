@@ -19,7 +19,7 @@ jobs:
           github-repository: ${{ github.repository }}
           package-type: maven
           version-tag: SNAPSHOT
-          gitnub-token: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
+          github-token: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
 
       - name: Publish SNAPSHOT package
         uses: gradle/gradle-build-action@v2
