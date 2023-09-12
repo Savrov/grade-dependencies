@@ -15,11 +15,11 @@ jobs:
 
       - name: Delete SNAPSHOT packages
         uses: credible-team/action-version-cleaner@main
-        env:
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          PACKAGE_TYPE: maven
-          VERSION_TAG: SNAPSHOT
-          GITHUB_TOKEN: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
+        with:
+          github-repository: ${{ github.repository }}
+          package-type: maven
+          version-tag: SNAPSHOT
+          gitnub-token: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
 
       - name: Publish SNAPSHOT package
         uses: gradle/gradle-build-action@v2
