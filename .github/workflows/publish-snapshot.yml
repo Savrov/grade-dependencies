@@ -3,8 +3,6 @@ on:
   workflow_dispatch:
   push:
     branches: [ 'main' ]
-env:
-  VERSION_TAG: SNAPSHOT
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -20,7 +18,7 @@ jobs:
         with:
           github-repository: ${{ github.repository }}
           package-type: maven
-          version-tag: $VERSION_TAG
+          version-tag: SNAPSHOT
           github-token: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
 
       - name: Publish SNAPSHOT package
