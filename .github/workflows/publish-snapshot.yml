@@ -1,4 +1,4 @@
-name: Publish $VERSION_TAG versions
+name: Publish SNAPSHOT versions
 on:
   workflow_dispatch:
   push:
