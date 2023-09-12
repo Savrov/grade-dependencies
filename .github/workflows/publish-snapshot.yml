@@ -1,10 +1,10 @@
-name: Publish SNAPSHOT versions
+env:
+  VERSION_TAG: SNAPSHOT
+name: Publish $VERSION_TAG versions
 on:
   workflow_dispatch:
   push:
     branches: [ 'main' ]
-env:
-  VERSION_TAG: SNAPSHOT
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -15,17 +15,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Delete ${{ VERSION_TAG }} packages
+      - name: Delete $VERSION_TAG packages
         uses: credible-team/action-version-cleaner@main
         with:
           github-repository: ${{ github.repository }}
           package-type: maven
-          version-tag: ${{ VERSION_TAG }}
+          version-tag: $VERSION_TAG
           github-token: ${{ secrets.WRITE_DELETE_PACKAGES_TOKEN }}
 
-      - name: Publish ${{ VERSION_TAG }} package
+      - name: Publish $VERSION_TAG package
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publish -Pversion=SNAPSHOT
+          arguments: publish -Pversion=VERSION_TAG
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
