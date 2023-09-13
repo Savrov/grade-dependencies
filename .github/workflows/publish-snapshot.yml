@@ -11,7 +11,7 @@ jobs:
       packages: write
     steps:
       - name: Delete previous SNAPSHOT packages
-        uses: credible-team/action-version-cleaner@main
+        uses: credible-team/action-version-cleaner@development
         with:
           package-type: maven
           github-token: ${{ secrets.DELETE_PACKAGES_TOKEN }}
