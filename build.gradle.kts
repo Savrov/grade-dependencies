@@ -9,12 +9,6 @@ subprojects {
     apply(plugin = "org.gradle.version-catalog")
     apply(plugin = "org.gradle.maven-publish")
 
-    catalog {
-        versionCatalog {
-            from(files("libs.versions.toml"))
-        }
-    }
-
     publishing {
         repositories {
             maven {
