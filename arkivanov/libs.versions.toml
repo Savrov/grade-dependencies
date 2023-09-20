@@ -1,14 +1,27 @@
 [versions]
-version-arkivanov-mvi = "3.2.1"
-version-arkivanov-decompose = "2.0.0-compose-experimental-beta-01"
+arkivanov-mvi = "3.2.1"
+arkivanov-decompose = "2.0.0-compose-experimental-beta-01"
 
 [libraries]
-mvikotlin-core = { module = "com.arkivanov.mvikotlin:mvikotlin", version.ref = "version-arkivanov-mvi" }
-mvikotlin-main = { module = "com.arkivanov.mvikotlin:mvikotlin-main", version.ref = "version-arkivanov-mvi" }
-mvikotlin-logging = { module = "com.arkivanov.mvikotlin:mvikotlin-logging", version.ref = "version-arkivanov-mvi" }
-mvikotlin-timetravel = { module = "com.arkivanov.mvikotlin:mvikotlin-timetravel", version.ref = "version-arkivanov-mvi" }
-mvikotlin-ext-coroutines = { module = "com.arkivanov.mvikotlin:mvikotlin-extensions-coroutines", version.ref = "version-arkivanov-mvi" }
+mvikotlin-core = { module = "com.arkivanov.mvikotlin:mvikotlin", version.ref = "arkivanov-mvi" }
+mvikotlin-main = { module = "com.arkivanov.mvikotlin:mvikotlin-main", version.ref = "arkivanov-mvi" }
+mvikotlin-logging = { module = "com.arkivanov.mvikotlin:mvikotlin-logging", version.ref = "arkivanov-mvi" }
+mvikotlin-timetravel = { module = "com.arkivanov.mvikotlin:mvikotlin-timetravel", version.ref = "arkivanov-mvi" }
+mvikotlin-ext-coroutines = { module = "com.arkivanov.mvikotlin:mvikotlin-extensions-coroutines", version.ref = "arkivanov-mvi" }
 
-decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "version-arkivanov-decompose" }
-decompose-ext-compose = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "version-arkivanov-decompose" }
-decompose-ext-android = { module = "com.arkivanov.decompose:extensions-android", version.ref = "version-arkivanov-decompose"}
+decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "arkivanov-decompose" }
+decompose-ext-compose = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "arkivanov-decompose" }
+decompose-ext-android = { module = "com.arkivanov.decompose:extensions-android", version.ref = "arkivanov-decompose" }
+
+[bundles]
+mvikotlin = [
+    "mvikotlin-core",
+    "mvikotlin-main",
+    "mvikotlin-logging",
+    "mvikotlin-timetravel",
+    "mvikotlin-ext-coroutines",
+]
+decompose = [
+    "decompose-core",
+    "decompose-ext-compose",
+]

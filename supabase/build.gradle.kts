@@ -5,7 +5,7 @@ plugins {
 
 publishing {
     publications {
-        create<MavenPublication>("versionCatalog") {
+        create<MavenPublication>("supabaseVersionCatalog") {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
             artifactId = "versions-supabase"

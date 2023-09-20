@@ -1,5 +1,9 @@
-[versions]
-version-other-uuid = "0.7.1"
+[plugins]
+buildConfig = { id = "com.github.gmazzo.buildconfig", version = "4.0.4" }
+spotless = { id = "com.diffplug.spotless", version = "6.18.0" }
 
 [libraries]
-other-uuid = { module = "com.benasher44:uuid", version.ref = "version-other-uuid" }
+uuid = { module = "com.benasher44:uuid", version = "0.7.1" }
+clikt = { module = "com.github.ajalt.clikt:clikt", version = "3.5.2" }
+logback = { module = "ch.qos.logback:logback-classic", version = "1.4.5" }
+mockk = { module = "io.mockk:mockk", version = "1.13.5" }

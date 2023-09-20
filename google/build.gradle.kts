@@ -5,10 +5,10 @@ plugins {
 
 publishing {
     publications {
-        create<MavenPublication>("jetbrainsVersionCatalog") {
+        create<MavenPublication>("googleVersionCatalog") {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
-            artifactId = "versions-jetbrains"
+            artifactId = "versions-google"
         }
     }
 }

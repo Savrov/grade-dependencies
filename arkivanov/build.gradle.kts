@@ -5,7 +5,7 @@ plugins {
 
 publishing {
     publications {
-        create<MavenPublication>("versionCatalog") {
+        create<MavenPublication>("arkivanovVersionCatalog") {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
             artifactId = "versions-arkivanov"

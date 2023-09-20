@@ -1,25 +1,30 @@
 [versions]
-version-kotlin = "1.8.20"
-version-coroutines = "1.6.4"
-version-dateTime = "0.4.0"
-version-serialization = "1.5.0"
+kotlin = "1.8.20"
+coroutines = "1.6.4"
+dateTime = "0.4.0"
+serialization = "1.5.0"
+compose = "1.4.0"
 
 [plugins]
-jetbrains-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "version-kotlin" }
-jetbrains-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "version-kotlin" }
-jetbrains-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "version-kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 
 [libraries]
-jetbrains-kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "version-kotlin" }
-jetbrains-kotlin-test-annotationsCommon = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "version-kotlin" }
-jetbrains-kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "version-coroutines" }
-jetbrains-kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "version-coroutines" }
-jetbrains-kotlin-dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "version-dateTime" }
-jetbrains-kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "version-serialization" }
+kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
+kotlin-test-annotationsCommon = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
+kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+kotlin-dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "dateTime" }
+kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 
 [bundles]
-jetbrains-kotlin-test-shared = [
-    "jetbrains-kotlin-test-common",
-    "jetbrains-kotlin-test-annotationsCommon",
-    "jetbrains-kotlin-coroutines-test",
+kotlin-test = [
+    "kotlin-test-common",
+    "kotlin-test-annotationsCommon",
+    "kotlin-coroutines-test",
 ]
