@@ -14,6 +14,8 @@ jobs:
         uses: credible-team/action-version-cleaner@v1.0.0
         with:
           package-type: maven
+          version-tag: 0.0.0-SNAPSHOT
+          is-version-tag-strict: false
           github-token: ${{ secrets.DELETE_PACKAGES_TOKEN }}
 
       - name: Checkout repository
@@ -22,6 +24,6 @@ jobs:
       - name: Publish new SNAPSHOT package
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publish -Pversion=SNAPSHOT
+          arguments: publish -Pversion=0.0.0-SNAPSHOT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
