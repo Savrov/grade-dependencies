@@ -14,7 +14,7 @@ jobs:
         uses: credible-team/action-version-cleaner@v1.0.0
         with:
           package-type: maven
-          version-tag: 0.0.0-SNAPSHOT
+          version-tag: SNAPSHOT
           is-version-tag-strict: false
           github-token: ${{ secrets.DELETE_PACKAGES_TOKEN }}
 
