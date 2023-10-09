@@ -1,7 +1,7 @@
 [versions]
-gradle-plugin = "7.4.2"
+gradle-plugin = "8.1.2"
 sdk-min = "24"
-sdk-compile = "33"
+sdk-compile = "34"
 activity = "1.7.1"
 appcompat = "1.6.1"
 core = "1.10.0"

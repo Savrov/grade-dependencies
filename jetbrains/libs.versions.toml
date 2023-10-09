@@ -1,9 +1,9 @@
 [versions]
-kotlin = "1.8.20"
-coroutines = "1.6.4"
-dateTime = "0.4.0"
-serialization = "1.5.0"
-compose = "1.4.0"
+kotlin = "1.9.10"
+coroutines = "1.7.3"
+dateTime = "0.4.1"
+serialization = "1.6.0"
+compose = "1.5.3"
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

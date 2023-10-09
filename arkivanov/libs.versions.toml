@@ -1,6 +1,6 @@
 [versions]
 arkivanov-mvi = "3.2.1"
-arkivanov-decompose = "2.0.0-compose-experimental-beta-01"
+arkivanov-decompose = "2.1.2"
 
 [libraries]
 mvikotlin-core = { module = "com.arkivanov.mvikotlin:mvikotlin", version.ref = "arkivanov-mvi" }
