@@ -1,4 +1,4 @@
-name: Publish RELEASE versions
+name: Publish SNAPSHOT versions
 on:
   workflow_dispatch:
   push:
