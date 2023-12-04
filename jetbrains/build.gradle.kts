@@ -8,7 +8,7 @@ publishing {
         create<MavenPublication>("jetbrainsVersionCatalog") {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
-            artifactId = "versions-jetbrains"
+            artifactId = "dependency-jetbrains"
         }
     }
 }

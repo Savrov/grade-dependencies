@@ -8,7 +8,7 @@ publishing {
         create<MavenPublication>("koinVersionCatalog") {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
-            artifactId = "versions-koin"
+            artifactId = "dependency-koin"
         }
     }
 }

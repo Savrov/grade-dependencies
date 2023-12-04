@@ -8,7 +8,7 @@ publishing {
         create<MavenPublication>("arkivanovVersionCatalog") {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
-            artifactId = "versions-arkivanov"
+            artifactId = "dependency-arkivanov"
         }
     }
 }

@@ -8,7 +8,7 @@ publishing {
         create<MavenPublication>("sqldelightVersionCatalog") {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
-            artifactId = "versions-sqldelight"
+            artifactId = "dependency-sqldelight"
         }
     }
 }
