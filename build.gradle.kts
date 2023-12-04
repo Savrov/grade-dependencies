@@ -22,7 +22,7 @@ subprojects {
         repositories {
             maven {
                 name = "GitHubPackages"
-                url = URI.create("https://maven.pkg.github.com/credible-team/gradle-versions")
+                url = URI.create("https://maven.pkg.github.com/Savrov/grade-dependencies")
                 credentials {
                     username = System.getenv("GITHUB_ACTOR")
                     password = System.getenv("GITHUB_TOKEN")
