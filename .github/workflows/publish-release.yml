@@ -12,9 +12,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Extract tag name
+        id: extract_tag
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+
       - name: Publish new package
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publish
+          arguments: publish -Pversion=${{ env.VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
