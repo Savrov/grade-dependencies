@@ -2,7 +2,7 @@ name: Publish SNAPSHOT versions
 on:
   workflow_dispatch:
   push:
-    branches: [ 'main' ]
+    branches: [ 'main', 'v.*' ]
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -10,12 +10,16 @@ jobs:
       contents: read
       packages: write
     steps:
+      - name: Extract branch name
+        id: extract_branch
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+
       - name: Delete previous SNAPSHOT packages
         uses: credible-team/action-version-cleaner@v1.0.0
         with:
           package-type: maven
-          version-tag: SNAPSHOT
-          is-version-tag-strict: false
+          version-tag: ${{ env.BRANCH_NAME }}-SNAPSHOT
+          is-version-tag-strict: true
           github-token: ${{ secrets.DELETE_PACKAGES_TOKEN }}
 
       - name: Checkout repository
@@ -24,6 +28,6 @@ jobs:
       - name: Publish new SNAPSHOT package
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publish -Pversion=1.0.0-SNAPSHOT
+          arguments: publish -Pversion=${{ env.BRANCH_NAME }}-SNAPSHOT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
