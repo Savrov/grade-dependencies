@@ -8,7 +8,7 @@ publishing {
         create<MavenPublication>("supabaseVersionCatalog") {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
-            artifactId = "dependency-supabase"
+            artifactId = project.parent?.name + "-supabase"
         }
     }
 }

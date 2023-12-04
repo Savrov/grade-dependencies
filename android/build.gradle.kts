@@ -8,7 +8,7 @@ publishing {
         create<MavenPublication>("androidVersionCatalog") {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
-            artifactId = "dependency-android"
+            artifactId = project.parent?.name + "-android"
         }
     }
 }
