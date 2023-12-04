@@ -2,7 +2,7 @@ name: Publish SNAPSHOT versions
 on:
   workflow_dispatch:
   push:
-    branches: [ 'main', 'v.*' ]
+    branches: [ 'v*' ]
 jobs:
   publish:
     runs-on: ubuntu-latest
