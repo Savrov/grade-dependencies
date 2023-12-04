@@ -1,3 +1,5 @@
+rootProject.name = extra["project-name"] as String
+
 pluginManagement {
     repositories {
         mavenCentral()
@@ -5,7 +7,6 @@ pluginManagement {
     }
 }
 
-rootProject.name = "gradle-versions"
 include("android")
 include("arkivanov")
 include("google")
