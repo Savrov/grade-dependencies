@@ -15,7 +15,7 @@ jobs:
         run: |
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           VERSION=${BRANCH_NAME:1}
-          echo "VERSION=VERSION" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Delete previous SNAPSHOT packages
         uses: credible-team/action-version-cleaner@v1.0.0
