@@ -1,7 +1,6 @@
 import java.net.URI
 
 group = extra["project-group"] as String
-version = extra["project-version"] as String
 
 plugins {
     id("org.gradle.version-catalog")
