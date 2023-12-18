@@ -8,7 +8,7 @@ publishing {
         create<MavenPublication>("kotestVersionCatalog") {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
-            artifactId = "dependency-kotest"
+            artifactId = project.parent?.name + "-kotest"
         }
     }
 }

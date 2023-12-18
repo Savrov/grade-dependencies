@@ -8,7 +8,7 @@ publishing {
         create<MavenPublication>("ktorVersionCatalog") {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
-            artifactId = "dependency-ktor"
+            artifactId = project.parent?.name + "-ktor"
         }
     }
 }

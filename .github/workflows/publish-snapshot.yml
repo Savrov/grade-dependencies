@@ -2,7 +2,8 @@ name: Publish SNAPSHOT versions
 on:
   workflow_dispatch:
   push:
-    branches: [ 'main', 'v.*' ]
+    branches:
+      - release/**
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -12,13 +13,16 @@ jobs:
     steps:
       - name: Extract branch name
         id: extract_branch
-        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          VERSION=${BRANCH_NAME:8} # remove 'release/' prefix
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Delete previous SNAPSHOT packages
-        uses: credible-team/action-version-cleaner@v1.0.0
+        uses: Savrov/github-action-version-cleaner@release/1.0.0
         with:
           package-type: maven
-          version-tag: ${{ env.BRANCH_NAME }}-SNAPSHOT
+          version-tag: ${{ env.VERSION }}-SNAPSHOT
           is-version-tag-strict: true
           github-token: ${{ secrets.DELETE_PACKAGES_TOKEN }}
 
@@ -28,6 +32,6 @@ jobs:
       - name: Publish new SNAPSHOT package
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publish -Pversion=${{ env.BRANCH_NAME }}-SNAPSHOT
+          arguments: publish -Pversion=${{ env.VERSION }}-SNAPSHOT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
