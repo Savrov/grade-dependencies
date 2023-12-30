@@ -1,5 +1,6 @@
 [versions]
 detekt = "1.23.3"
+javaMajor = "18"
 
 [plugins]
 buildConfig = { id = "com.github.gmazzo.buildconfig", version = "4.1.2" }
