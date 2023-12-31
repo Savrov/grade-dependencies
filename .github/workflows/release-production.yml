@@ -1,4 +1,4 @@
-name: Publish RELEASE versions
+name: release production
 on:
   release:
     types: [ created ]
