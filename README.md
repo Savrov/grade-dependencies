@@ -1,9 +1,9 @@
 # Gradle Versions Catalog
-[![1.0.0](https://github.com/Savrov/grade-version-catalogs/actions/workflows/release-production.yml/badge.svg?branch=release/1.0.0)]
-(https://github.com/Savrov/grade-version-catalogs/actions/workflows/release-production.yml)
+[![1.0.0](https://github.com/Savrov/grade-version-catalogs/actions/workflows/publish-release.yml/badge.svg?branch=release/1.0.0)]
+(https://github.com/Savrov/grade-version-catalogs/actions/workflows/publish-release.yml)
 
-[![1.0.0-SNAPSHOT](https://github.com/Savrov/grade-version-catalogs/actions/workflows/release-snapshot.yml/badge.svg?branch=release/1.0.0)]
-(https://github.com/Savrov/grade-version-catalogs/actions/workflows/release-snapshot.yml)
+[![1.0.0-SNAPSHOT](https://github.com/Savrov/grade-version-catalogs/actions/workflows/publish-snapshot.yml/badge.svg?branch=release/1.0.0)]
+(https://github.com/Savrov/grade-version-catalogs/actions/workflows/publish-snapshot.yml)
 
 ## Compatibility
 
