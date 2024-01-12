@@ -1,4 +1,0 @@
-[versions]
-
-[libraries]
-core-library-cleanarch = { module = "com.github.savrov.core:library-cleanarch", version = "1.0.0-SNAPSHOT" }
