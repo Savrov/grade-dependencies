@@ -1,5 +1,6 @@
 # Gradle Versions Catalog
 SSOT of all dependencies that are required pro KMP projects.
+
 ## Compatibility
 
 TODO
@@ -12,7 +13,7 @@ TODO
 
 2. Add the following to your `settings.gradle.kts` file:
 
-```kotlin
+```
 dependencyResolutionManagement {
     repositories {
         maven {
@@ -24,11 +25,8 @@ dependencyResolutionManagement {
         }
     }
     versionCatalogs {
-        create("libsAndroid") {
-            from("com.github.savrov.gradle:version-catalogs-android:${extra["gradle-versions"]}")
-        }
-        create("libsGoogle") {
-            from("com.github.savrov.gradle:version-catalogs-google:${extra["gradle-versions"]}")
+        create("libslibsVersionCatalog") {
+            from("com.github.savrov.gradle:version-catalogs:${extra["gradle-versions"]}")
         }
         // and other required modules
     }
@@ -37,16 +35,16 @@ dependencyResolutionManagement {
 
 3. Sync project and use version catalog in your `build.gradle.kts` file:
 
-```kotlin
+```
 plugins {
-    alias(libsAndroid.plugins.library)
-    alias(libsJetbrains.plugins.kotlin.multiplatform)
-    alias(libsJetbrains.plugins.compose)
+    alias(libsVersionCatalog.plugins.library)
+    alias(libsVersionCatalog.plugins.kotlin.multiplatform)
+    alias(libsVersionCatalog.plugins.compose)
 }
 ```
 
-```kotlin
+```
 dependencies {
-    api(libsJetbrains.kotlin.dateTime)
+    api(libsVersionCatalog.kotlin.dateTime)
 }
 ```
