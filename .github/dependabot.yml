@@ -6,42 +6,14 @@
 version: 2
 updates:
   - package-ecosystem: "gradle"
-    directory: "/android"
+    directory: "/gradle"
     schedule:
       interval: "daily"
   - package-ecosystem: "gradle"
-    directory: "/arkivanov"
+    directory: "/"
     schedule:
       interval: "daily"
   - package-ecosystem: "gradle"
-    directory: "/google"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "gradle"
-    directory: "/jetbrains"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "gradle"
-    directory: "/koin"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "gradle"
-    directory: "/kotest"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "gradle"
-    directory: "/ktor"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "gradle"
-    directory: "/other"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "gradle"
-    directory: "/sqldelight"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "gradle"
-    directory: "/supabase"
+    directory: ""
     schedule:
       interval: "daily"

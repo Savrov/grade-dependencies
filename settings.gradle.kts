@@ -1,4 +1,4 @@
-rootProject.name = extra["project-name"] as String
+rootProject.name = extra["name"] as String
 
 pluginManagement {
     repositories {
@@ -15,5 +15,6 @@ include("koin")
 include("kotest")
 include("ktor")
 include("other")
+include("savrov")
 include("sqldelight")
 include("supabase")

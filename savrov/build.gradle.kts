@@ -5,10 +5,10 @@ plugins {
 
 publishing {
     publications {
-        create<MavenPublication>("otherVersionCatalog") {
+        create<MavenPublication>("savrovVersionCatalog") {
             from(components["versionCatalog"])
             groupId = project.parent?.group?.toString()
-            artifactId = project.parent?.name + "-other"
+            artifactId = project.parent?.name + "-savrov"
         }
     }
 }
