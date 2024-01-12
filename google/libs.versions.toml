@@ -1,5 +1,0 @@
-[versions]
-firebase-admin = "9.2.0"
-
-[libraries]
-firebase-admin = { module = "com.google.firebase:firebase-admin", version.ref = "firebase-admin" }
