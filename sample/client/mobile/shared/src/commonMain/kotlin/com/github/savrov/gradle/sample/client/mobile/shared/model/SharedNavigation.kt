@@ -4,7 +4,9 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 
 @Parcelize
-sealed interface SharedNavigation: Parcelable {
+sealed interface SharedNavigation : Parcelable {
     data object Entry : SharedNavigation
     data object Projects : SharedNavigation
+
+    data object BuildConfig : SharedNavigation
 }

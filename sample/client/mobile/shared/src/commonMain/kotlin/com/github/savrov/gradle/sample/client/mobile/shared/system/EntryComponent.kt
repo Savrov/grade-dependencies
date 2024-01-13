@@ -45,6 +45,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.Koin
 
 @Composable
+@Deprecated("remove this component")
 fun EntryComponent(
     koin: Koin,
 ) {

@@ -27,6 +27,7 @@ class SharedNavigationDelegate(
             when (configuration) {
                 SharedNavigation.Entry -> SharedNavigationController.Child.Entry(componentContext)
                 SharedNavigation.Projects -> SharedNavigationController.Child.Projects(componentContext)
+                SharedNavigation.BuildConfig -> SharedNavigationController.Child.BuildConfigComponent(componentContext)
             }
         }
     )
@@ -35,6 +36,13 @@ class SharedNavigationDelegate(
         val navigation = when(stack.active.instance) {
             is SharedNavigationController.Child.Entry -> SharedNavigation.Entry
             is SharedNavigationController.Child.Projects -> SharedNavigation.Projects
+            is SharedNavigationController.Child.BuildConfigComponent -> SharedNavigation.BuildConfig
+            is SharedNavigationController.Child.ComposeComponent -> TODO()
+            is SharedNavigationController.Child.KtorClientComponent -> TODO()
+            is SharedNavigationController.Child.OidcComponent -> TODO()
+            is SharedNavigationController.Child.SqlDelightComponent -> TODO()
+            is SharedNavigationController.Child.SupabaseComponent -> TODO()
+            is SharedNavigationController.Child.UuidComponent -> TODO()
         }
         activeChildController.update(navigation)
     }
@@ -45,10 +53,10 @@ class SharedNavigationDelegate(
             stack = childStack,
             modifier = modifier,
         ) {
-            when(it.instance) {
-                is SharedNavigationController.Child.Entry -> EntryComponent(getKoin())
-                is SharedNavigationController.Child.Projects -> ProjectsComponent(getKoin())
-            }
+//            when(it.instance) {
+//                is SharedNavigationController.Child.Entry -> EntryComponent(getKoin())
+//                is SharedNavigationController.Child.Projects -> ProjectsComponent(getKoin())
+//            }
         }
     }
 
