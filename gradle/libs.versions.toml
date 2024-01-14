@@ -18,7 +18,7 @@ kotlin-compiler-extension = "1.5.6"
 jetbrains-compose = "1.5.11"
 koin = "3.5.3"
 kotest = "5.7.2"
-ktor = "2.3.6"
+ktor = "2.3.7"
 detekt = "1.23.3"
 buildconfig = "5.3.5"
 uuid = "0.8.1"
@@ -29,6 +29,7 @@ savrov-core-library-cleanarch = "1.0.0-SNAPSHOT"
 sqldelight = "2.0.0"
 supabase = "1.0.0"
 oidc = "0.6.5"
+coil = "3.0.0-alpha02"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -124,3 +125,10 @@ supabase-realtime = { module = "io.github.jan-tennert.supabase:realtime-kt", ver
 supabase-functions = { module = "io.github.jan-tennert.supabase:functions-kt", version.ref = "supabase" }
 
 oidc = { module = "io.github.kalinjul.kotlin.multiplatform:oidc-appsupport", version.ref = "oidc" }
+
+coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network = { module = "io.coil-kt.coil3:coil-network", version.ref = "coil" }
+
+[bundles]
+coil = ["coil", "coil-compose", "coil-network"]

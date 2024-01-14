@@ -10,18 +10,17 @@ import androidx.compose.ui.graphics.Color
 
 
 private val LightColorScheme = lightColorScheme(
-    surface = Color(0xFF292C43),
-    onSurface = Color.White,
+
 )
 
 private val DarkColorScheme = darkColorScheme(
-    // your dark color scheme colors
+    surface = Color(0xFF292C43),
+    onSurface = Color.White,
 )
 
 @Composable
 fun SampleTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
-    useDynamicColor: Boolean = true,
     content: @Composable () -> Unit,
 ) {
     val colorScheme = when {

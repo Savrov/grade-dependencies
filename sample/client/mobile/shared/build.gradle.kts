@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.jetbrains.compose)
+    // If i enable this, i get the following error: org.gradle.api.internal.plugins.PluginApplicationException: Failed to apply plugin 'org.jetbrains.compose'.
+    // alias(libs.plugins.buildConfig)
 }
 
 kotlin {
@@ -32,15 +34,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.kotlin.dateTime)
-                implementation(libs.arkivanov.decompose.core)
-                implementation(libs.arkivanov.decompose.ext.compose)
-                implementation(libs.arkivanov.mvikotlin.core)
-                implementation(libs.arkivanov.mvikotlin.main)
-                implementation(libs.arkivanov.mvikotlin.logging)
-                implementation(libs.arkivanov.mvikotlin.ext.coroutines)
-                implementation(libs.koin.core)
-                implementation(libs.savrov.core.library.cleanarch)
                 implementation(compose.ui)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -51,15 +44,13 @@ kotlin {
                 // Workaround as per https://youtrack.jetbrains.com/issue/KT-41821
                 implementation("org.jetbrains.kotlinx:atomicfu:0.17.3")
 
-                implementation(libs.oidc)
+                implementation(libs.bundles.coil)
             }
         }
         val androidMain by getting {
             dependencies {
                 implementation(libs.android.activity.compose)
-                implementation(libs.arkivanov.decompose.ext.android)
-                implementation(libs.koin.android.core)
-                implementation(libs.koin.android.compose)
+                implementation(libs.android.appcompat)
                 implementation(compose.uiTooling)
                 implementation(compose.preview)
             }
@@ -72,9 +63,6 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
-            dependencies {
-                implementation(libs.arkivanov.decompose.ext.compose)
-            }
         }
     }
 }
