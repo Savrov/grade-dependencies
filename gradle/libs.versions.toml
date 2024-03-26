@@ -28,7 +28,7 @@ mockk = "1.13.8"
 savrov-core-library-cleanarch = "1.0.0-SNAPSHOT"
 sqldelight = "2.0.0"
 supabase = "1.0.0"
-oidc = "0.6.5"
+oidc = "0.9.1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
